@@ -1,0 +1,77 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the site in the jekyll/builder container
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+        jekyll/builder:latest /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --future"
+- name: Cache
+  uses: actions/cache@v1.1.2
+  with:
+    # A directory to store and save the cache
+    path: 
+    # An explicit key for restoring and saving the cache
+    key: 
+    # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+    restore-keys: # optional
+    - name: Cachix
+  uses: cachix/cachix-action@v5
+  with:
+    # Name of a cachix cache to push and pull/substitute
+    name: 
+    # Authentication token for Cachix, needed only for private cache access
+    authToken: # optional
+    # Signing key secret retrieved after creating binary cache on https://cachix.org
+    signingKey: # optional
+    # Set to true to not invoke nix-build after setup.
+    skipNixBuild: # optional
+    # Nix file to build. Defaults to default.nix
+    file: # optional
+    # Nix attributes to nix-build. By default, all attributes are built.
+    attributes: # optional
+    # Additional arguments for nix-build.
+    nixBuildArgs: # optional
+    - name: Always-Cache
+  uses: gerbal/always-cache@v1.0.3
+  with:
+    # A directory to store and save the cache
+    path: 
+    # An explicit key for restoring and saving the cache
+    key: 
+    # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+    restore-keys: # optional
+    - name: Setup Google Cloud SDK
+  uses: mathrix-education/setup-gcloud@1.1.0
+  with:
+    # Google Cloud SDK to use. If left null, will use the latest one.
+    version: # optional, default is latest
+    # The service account key to use, base64-encoded.
+    service-account-key: # optional
+    # The default Google Cloud project. You can change it later.
+    project: # optional, default is auto
+    # Install additional components (e.g. beta, gsutil, etc.)
+    components: # optional
+    # Configure Docker to interact with Google Cloud Container Registry.
+    configure-docker: # optional, default is false
+    - name: Google Java Format
+  uses: axel-op/googlejavaformat-action@v2.0.0
+  with:
+    # Arguments for the Google Java Format executable
+    args: # optional, default is --replace
+    # Pattern to match files to be formatted
+    files: # optional, default is **/*.java
+    # Set to true to not commit the changes
+    skipCommit: # optional, default is false
