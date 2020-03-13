@@ -25,7 +25,7 @@ body {
 }
 
 .gsc-control {
-  width: 300px;
+  width: 213px;
 }
 
 .gsc-control div {
@@ -34,7 +34,7 @@ body {
 
 .gsc-control-cse,
 .gsc-control-cse .gsc-table-result {
-  width: 100%;
+  width: 213%;
   font-family: Arial, sans-serif;
   font-size : 13px;
 }
@@ -50,7 +50,7 @@ form.gsc-search-box {
   margin-right : 0;
   margin-bottom : 4px;
   margin-left : 0;
-  width: 100%;
+  width: 213%;
 }
 
 /*
@@ -62,7 +62,7 @@ table.gsc-search-box {
   border-style : none;
   border-width : 0;
   border-spacing : 0 0;
-  width : 100%;
+  width : 213%;
   margin-bottom : 2px;
 }
 
